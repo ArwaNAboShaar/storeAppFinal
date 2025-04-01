@@ -57,7 +57,19 @@
 
   </div>
 
+  <div class="container mt-5 mb-3">
+    <form action="{{url('/')}}" method="GETT" class="d-flex">
+        @csrf
+        <label for="categoryFormControlTextarea1" class="ml-3">اختر الصنف</label>
 
+        <select class="form-control ml-3" name="category_id" id="category_id">
+            <option value="#"></option>
+            @foreach ($categories as $category)
+            <option value="{{$category->id}}">{{$category->name}}</option>
+            @endforeach
+        </select>
+        <input type="submit" value="فلترة" class="btn btn-link" style="color: #28a745;">
+    </form> </div>
 
   <div class="container marketing">
     <!-- Three columns of text below the carousel -->

@@ -8,10 +8,20 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function __construct()
     {
-        $products = Product::all();
-        return view('admin.products.index', compact('products'));
+        $this->middleware('auth');
+    }
+    public function index(Request $request)
+    {
+        if ($request->has('category_id') && $request->category_id != '') {
+            $products = Product::where('category_id', $request->category_id)->paginate(5);
+        } else {
+            $products = Product::paginate(5);
+        }
+
+        $categories = Category::all();
+        return view('admin.products.index', compact('products', 'categories','request'));
     }
 
     public function create()
