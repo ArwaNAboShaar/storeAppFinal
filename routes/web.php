@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,6 +19,7 @@ use App\Http\Controllers\CategoryController;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::middleware('auth')->group(function () {
  // products Routes
  Route::get('products', [ProductController::class, 'index']) ;
  Route::get('products/create', [ProductController::class, 'create']);
@@ -32,7 +34,7 @@ Route::get('/', function () {
  Route::get('categories/editC/{id}', [CategoryController::class, 'editC']);
  Route::get('categories/deleteC/{id}', [CategoryController::class, 'destroyC']);
  Route::post('categories/updateC/{id}', [CategoryController::class, 'updateC']);
-
+});
  // Front Routes
  Route::get('/',[FrontController::class, 'index']
  );

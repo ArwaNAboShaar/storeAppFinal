@@ -8,13 +8,13 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 class FrontController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request )
     {
-        if($request->has('category_id'))
+        if($request->has('category_id') && $request->category_id != '')
         {
-            $products = Product::where('category_id', $request->category_id)->get();
+            $products = Product::where('category_id', $request->category_id)->paginate(9);
         }
-        else {  $products = Product::all();}
+        else {  $products = Product::paginate(9);}
 
         $categories = Category::all();
         return view('home.index', compact('products','categories'));

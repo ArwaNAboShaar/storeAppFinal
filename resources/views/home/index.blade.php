@@ -63,9 +63,10 @@
         <label for="categoryFormControlTextarea1" class="ml-3">اختر الصنف</label>
 
         <select class="form-control ml-3" name="category_id" id="category_id">
-            <option value="#"></option>
+            <option value="">الكل</option>
             @foreach ($categories as $category)
-            <option value="{{$category->id}}">{{$category->name}}</option>
+            <option value="{{$category->id}}" {{request('category_id')== $category->id?'selected':''}}>{{$category->name}}</option>
+                   
             @endforeach
         </select>
         <input type="submit" value="فلترة" class="btn btn-link" style="color: #28a745;">
@@ -84,7 +85,7 @@
       @endforeach
     </div><!-- /.row -->
 
-
+    {{$products->appends(['category_id'=>request()->category_id])->links()}}
     <hr class="featurette-divider">
 
   </div><!-- /.container -->
